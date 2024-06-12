@@ -45,6 +45,8 @@
     "dark_mode": "الوضع المظلم",
     "light_mode": "الوضع المضيء",
     "update_data": "تحديث البيانات",
-    "save": "حفظ"
+    "save": "حفظ",
+    "book_flight": "حجز طيران",
+    "booked_flight":"الحجوزات"
   }
   

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sawah_app/Screens/beach.dart';
+import 'package:sawah_app/Screens/booking.dart';
 import 'package:sawah_app/Screens/cities.dart';
 import 'package:sawah_app/Screens/hotel.dart';
 import 'package:sawah_app/Screens/mountain.dart';
@@ -27,8 +28,12 @@ class _ShopScreenState extends State<HomeScreen> {
     'Sharm ElSheikh': 'assets/images/Port Said.JPG',
     // Add more cities and their corresponding images as needed
   };
+
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -42,9 +47,10 @@ class _ShopScreenState extends State<HomeScreen> {
         ),
         body: ListView(
           children: [
-            _buildHeader(),
-            _buildIconsGrid(),
-            _buildTripCards(), // Include the Firestore trip cards here
+            _buildHeader(screenHeight),
+            _buildIconsGrid(screenWidth),
+            _buildTripCards(
+                screenHeight), // Include the Firestore trip cards here
             const SizedBox(height: 10), // Some spacing
           ],
         ),
@@ -52,12 +58,14 @@ class _ShopScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(double screenHeight) {
     return Stack(
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Container(
+            height: screenHeight * 0.2,
+            width: screenHeight * 0.5, // Adjust height based on screen height
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -75,11 +83,13 @@ class _ShopScreenState extends State<HomeScreen> {
         ),
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.all(35.0),
-              child: Text(
-                (S.of(context).trip_planner_in_egypt),
-                style: TextStyle(fontSize: 35, color: Colors.white),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(35.0),
+                child: Text(
+                  (S.of(context).trip_planner_in_egypt),
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
               ),
             ),
             Text(
@@ -93,152 +103,65 @@ class _ShopScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildIconsGrid() {
+  Widget _buildIconsGrid(double screenWidth) {
     return SizedBox(
-      height: 130,
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(17.0),
-          child: GridView(
-            physics: AlwaysScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              mainAxisExtent: 90,
-            ),
-            children: [
-              Card(
-                child: Column(children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CitiesPage()),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 1),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(color: Colors.black38, blurRadius: 4)
-                        ],
-                      ),
-                      child: Image.asset("assets/images/city.png",
-                          width: 60, height: 60),
-                    ),
-                  ),
-                  Text((S.of(context).cities)),
-                ]),
-              ),
-              Card(
-                child: Column(children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BeachPage()),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.8),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(color: Colors.black38, blurRadius: 4)
-                        ],
-                      ),
-                      child: Image.asset("assets/images/beach.png",
-                          width: 60, height: 60),
-                    ),
-                  ),
-                  SizedBox(height: 20, child: Text((S.of(context).beach))),
-                ]),
-              ),
-              Card(
-                child: Column(children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HotelPage()),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.8),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(color: Colors.black38, blurRadius: 4)
-                        ],
-                      ),
-                      child: Image.asset("assets/images/hotel.png",
-                          width: 60, height: 60),
-                    ),
-                  ),
-                  SizedBox(height: 20, child: Text((S.of(context).hotel))),
-                ]),
-              ),
-              Card(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MountainPage()),
-                    );
-                  },
-                  child: Column(children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.8),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(color: Colors.black38, blurRadius: 4)
-                        ],
-                      ),
-                      child: Image.asset("assets/images/mountain.png",
-                          width: 60, height: 60),
-                    ),
-                    SizedBox(height: 20, child: Text((S.of(context).mountain))),
-                  ]),
-                ),
-              ),
-              Card(
-                child: Column(children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MuseumPage()),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 0.8),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(color: Colors.black38, blurRadius: 4)
-                        ],
-                      ),
-                      child: Image.asset("assets/images/museum.png",
-                          width: 60, height: 60),
-                    ),
-                  ),
-                  SizedBox(height: 20, child: Text((S.of(context).museum))),
-                ]),
-              ),
-            ],
+      height: screenWidth *
+          0.6, // Adjust height based on screen width to fit all icons
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: GridView(
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, // Adjust the number of icons per row
+            mainAxisExtent: screenWidth * 0.3, // Adjust height of each item
           ),
+          children: [
+            _iconCard('city.png', S.of(context).cities, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CitiesPage()),
+              );
+            }),
+            _iconCard('beach.png', S.of(context).beach, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BeachPage()),
+              );
+            }),
+            _iconCard('hotel.png', S.of(context).hotel, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HotelPage()),
+              );
+            }),
+            _iconCard('mountain.png', S.of(context).mountain, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MountainPage()),
+              );
+            }),
+            _iconCard('museum.png', S.of(context).museum, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MuseumPage()),
+              );
+            }),
+            _iconCard('plane.png', S.of(context).book_flight, () {
+              // Add your localization string if available
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PlaneTicketBooking()), // Navigate to PlaneTicketBooking screen
+              );
+            }),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildTripCards() {
+  Widget _buildTripCards(double screenHeight) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
 
     if (userId == null) {
@@ -274,11 +197,11 @@ class _ShopScreenState extends State<HomeScreen> {
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 1,
+                  childAspectRatio: screenHeight / 800, // Adjust aspect ratio
                 ),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {

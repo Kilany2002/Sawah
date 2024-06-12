@@ -45,7 +45,9 @@
   "dark_mode": "dark mode",
   "light_mode": "light mode",
   "update_data": "update_data",
-  "save": "save"
+  "save": "save",
+  "book_flight":"book flight",
+  "booked_flight":"Booking"
 
 
 }

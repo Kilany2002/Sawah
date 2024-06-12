@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sawah_app/Screens/FeedbackPage%20.dart';
+import 'package:sawah_app/Screens/booked.dart';
 import 'package:sawah_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sawah_app/generated/l10n.dart';
+import 'package:sawah_app/help.dart';
 import 'package:sawah_app/login_page.dart';
 import 'package:sawah_app/screens/settings_page.dart';
 import 'dart:io';
@@ -222,14 +224,24 @@ class ProfileListItems extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           ProfileListItem(
-            icon: LineAwesomeIcons.user_shield,
-            text: (S.of(context).privacy),
-            onPressed: () {},
+            icon: LineAwesomeIcons.plane,
+            text: (S.of(context).booked_flight),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BookedTicketsPage()),
+              );
+            },
           ),
           ProfileListItem(
             icon: LineAwesomeIcons.question_circle,
             text: (S.of(context).help_support),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HelpSupportPage()),
+              );
+            },
           ),
           ProfileListItem(
             icon: LineAwesomeIcons.cog,

@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "beach": MessageLookupByLibrary.simpleMessage("Beach"),
+        "book_flight": MessageLookupByLibrary.simpleMessage("book flight"),
+        "booked_flight": MessageLookupByLibrary.simpleMessage("Booking"),
         "cities": MessageLookupByLibrary.simpleMessage("Cities"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),

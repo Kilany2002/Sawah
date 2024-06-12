@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟"),
         "beach": MessageLookupByLibrary.simpleMessage("شاطئ"),
+        "book_flight": MessageLookupByLibrary.simpleMessage("حجز طيران"),
+        "booked_flight": MessageLookupByLibrary.simpleMessage("الحجوزات"),
         "cities": MessageLookupByLibrary.simpleMessage("مدن"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),

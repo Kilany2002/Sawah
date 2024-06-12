@@ -519,6 +519,26 @@ class S {
       args: [],
     );
   }
+
+  /// `book flight`
+  String get book_flight {
+    return Intl.message(
+      'book flight',
+      name: 'book_flight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Booking`
+  String get booked_flight {
+    return Intl.message(
+      'Booking',
+      name: 'booked_flight',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

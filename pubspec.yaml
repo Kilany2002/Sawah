@@ -72,6 +72,12 @@ flutter:
     - .env
     - assets/icons/
     - assets/images/
+    - assets/marker/blue.png
+    - assets/marker/green.png
+    - assets/marker/orange.png
+    - assets/marker/pink.png
+    - assets/marker/red.png
+    
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

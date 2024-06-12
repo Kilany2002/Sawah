@@ -9,18 +9,38 @@ class HotelPage extends StatefulWidget {
 }
 
 class _HotelSearchPageState extends State<HotelPage> {
-  final TextEditingController _destinationController = TextEditingController();
+  final List<String> _destinations = [
+    'Cairo',
+    'Hurghada',
+    'Alexandria',
+    'Aswan',
+    'Luxor',
+    'Faiyum',
+    'Matrouh',
+    'Port Said',
+    'Red Sea',
+    'Kafr El Sheikh',
+    'Ismailia'
+  ];
+  String? _selectedDestination;
   List<dynamic> _hotels = [];
+  bool _isLoading = false;
 
   Future<void> _searchHotels() async {
+    if (_selectedDestination == null) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
     var response = await http.post(
       Uri.parse(
-          'http://192.168.1.9:5000/recommend_hotels'), // Replace with your API URL
+          'https://flask-1-vew0.onrender.com/recommend_hotels'), // Replace with your API URL
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'destination': _destinationController.text,
+        'destination': _selectedDestination!,
       }),
     );
 
@@ -31,6 +51,10 @@ class _HotelSearchPageState extends State<HotelPage> {
     } else {
       // Handle errors or no results
     }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Widget _buildHotelCard(Map<String, dynamic> hotel) {
@@ -123,23 +147,44 @@ class _HotelSearchPageState extends State<HotelPage> {
         children: [
           Padding(
             padding: EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _destinationController,
+            child: DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                hintText: 'Enter Destination',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: _searchHotels,
-                ),
+                hintText: 'Select Destination',
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               ),
+              value: _selectedDestination,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedDestination = newValue;
+                });
+              },
+              items:
+                  _destinations.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _hotels.length,
-              itemBuilder: (context, index) {
-                return _buildHotelCard(_hotels[index]);
-              },
+          _isLoading
+              ? CircularProgressIndicator()
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: _hotels.length,
+                    itemBuilder: (context, index) {
+                      return _buildHotelCard(_hotels[index]);
+                    },
+                  ),
+                ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: _selectedDestination != null ? _searchHotels : null,
+              child: Text('Search Hotels'),
             ),
           ),
         ],

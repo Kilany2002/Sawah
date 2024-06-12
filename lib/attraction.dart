@@ -11,7 +11,11 @@ class AttractionsList extends StatelessWidget {
     Colors.orange
   ]; // Add more colors as needed
 
-  AttractionsList({Key? key, required this.attractionsData, required Map<String, dynamic> tripData}) : super(key: key);
+  AttractionsList(
+      {Key? key,
+      required this.attractionsData,
+      required Map<String, dynamic> tripData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,6 @@ class AttractionsList extends StatelessWidget {
                     )),
           );
         },
-
         child: Icon(Icons.map), // Changed icon to map for relevance
       ),
     );

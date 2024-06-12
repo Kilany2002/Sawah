@@ -238,7 +238,7 @@ class _SecondPageState extends State<SecondPage> {
   }
 
   Future<void> _createNewTrip(BuildContext context) async {
-    final url = Uri.parse('http://192.168.1.9:5000/get_attractions');
+    final url = Uri.parse('https://flask-1-vew0.onrender.com/get_attractions');
     final Map<String, dynamic> tripData = {
       'Destination': widget.destinationController.text,
       'Duration (days)': int.tryParse(widget.durationController.text),
